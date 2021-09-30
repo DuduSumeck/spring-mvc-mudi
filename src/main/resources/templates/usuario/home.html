@@ -5,14 +5,27 @@
 	<div th:replace="~{header :: logo}"></div>
 	<div class="container">
 		<div th:replace="~{header :: titulo('Meus Pedidos')}"></div>
-		<nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
-			<div class="navbar-nav">
+		<nav class="navbar navbar-expand-md bg-light navbar-light justify-content-between mb-2">
+		  <a th:href="@{/pedido/form}"><button class="btn btn-outline-secondary" type="button">Novo</button></a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse flex-grow-0" id="collapsibleNavbar">
+		    <ul class="navbar-nav text-right">
+		      <li class="nav-item">
 				<a th:classappend="${status} == null ? 'active'" class="nav-link" th:href="@{/usuario/pedidos}">Todos</a>
+		      </li>
+		      <li class="nav-item">
 				<a th:classappend="${status} == 'aguardando' ? 'active'" class="nav-link" th:href="@{/usuario/pedidos/aguardando}">Aguardando</a>
+		      </li>
+		      <li class="nav-item">
 				<a th:classappend="${status} == 'aprovado' ? 'active'" class="nav-link" th:href="@{/usuario/pedidos/aprovado}">Aprovado</a>
+		      </li>
+		      <li class="nav-item">
 				<a th:classappend="${status} == 'entregue' ? 'active'" class="nav-link" th:href="@{/usuario/pedidos/entregue}">Entregue</a>
-			</div>
-			<a href="/pedido/form"><button class="btn btn-outline-secondary">Novo</button></a>
+		      </li>
+		    </ul>
+		  </div>
 		</nav>
 		<div class="card mb-3" th:each="pedido : ${pedidos}">
 			<th:block th:switch="${pedido.status.name()}">
