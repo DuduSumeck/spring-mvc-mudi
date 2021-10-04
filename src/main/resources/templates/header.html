@@ -32,6 +32,7 @@
 		    <span class="logo">mudi</span>
 		    <span class="mt-3">
 		    	<a sec:authorize="!isAuthenticated()" class="text-light" th:href="@{/login}">Login</a>
+		    	<a sec:authorize="!isAuthenticated()" class="text-light" th:href="@{/usuario/form}">Cadastre-se</a>
 		    	<a sec:authorize="isAuthenticated()" class="text-light" th:href="@{/logout}">Logout</a>
 		    </span>
 		</div>

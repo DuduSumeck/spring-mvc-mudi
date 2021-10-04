@@ -5,6 +5,9 @@
 	<div th:replace="~{header :: logo}"></div>
 	<div class="container">
 		<div th:replace="~{header :: titulo('Login')}"></div>
+		<div th:if="${param.error}" class="alert alert-danger">    
+    		Usuário e senha inválidos.
+		</div>
 		<div class="card mb-3">
 	        <form  class="card-body" th:action="@{/login}" method="post">
 	            <div class="form-group">
