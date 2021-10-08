@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{header :: head}"></head>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}"></head>
 <body>
-	<div th:replace="~{header :: logo}"></div>
+	<div th:replace="~{base :: logo}"></div>
 	<div class="container">
-		<div th:replace="~{header :: titulo('Login')}"></div>
+		<div th:replace="~{base :: titulo('Login')}"></div>
 		<div th:if="${param.error}" class="alert alert-danger">    
     		Usuário e senha inválidos.
 		</div>

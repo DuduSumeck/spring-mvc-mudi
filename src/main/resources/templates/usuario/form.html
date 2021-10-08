@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{header :: head}"></head>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}"></head>
 <body>
-	<div th:replace="~{header :: logo}"></div>
+	<div th:replace="~{base :: logo}"></div>
 	<div class="container">
-		<div th:replace="~{header :: titulo('Novo Usuário')}"></div>
+		<div th:replace="~{base :: titulo('Novo Usuário')}"></div>
 		<div class="card mt-3">
 	        <form th:object="${usuarioForm}" class="card-body" th:action="@{/usuario/add}" method="post">
 	            <div class="form-group">

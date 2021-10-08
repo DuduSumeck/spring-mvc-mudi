@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{header :: head}"></head>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}"></head>
 <body>
-	<div th:replace="~{header :: logo}"></div>
+	<div th:replace="~{base :: logo}"></div>
 	<div class="container">
-		<div th:replace="~{header :: titulo('Meus Pedidos')}"></div>
+		<div th:replace="~{base :: titulo('Meus Pedidos')}"></div>
 		<nav class="navbar navbar-expand-md bg-light navbar-light justify-content-between mb-2">
 		  <a th:href="@{/pedido/form}"><button class="btn btn-outline-secondary" type="button">Novo</button></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
