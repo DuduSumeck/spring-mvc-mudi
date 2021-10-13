@@ -29,13 +29,22 @@
 		</nav>
 		<div class="card mb-3" th:each="pedido : ${pedidos}">
 			<th:block th:switch="${pedido.status.name()}">
-				<div th:case="'AGUARDANDO'" class="card-header alert-warning" th:text="${pedido.nomeProduto}"></div>
-				<div th:case="'APROVADO'" class="card-header alert-success" th:text="${pedido.nomeProduto}"></div>
-				<div th:case="'ENTREGUE'" class="card-header alert-dark" th:text="${pedido.nomeProduto}"></div>
+				<div th:case="AGUARDANDO" class="card-header d-flex justify-content-between align-items-center alert-warning">
+					<h6 th:text="${pedido.nomeProduto}">Nome do Produto</h6>
+					<a th:href="@{|/pedido/remover/${pedido.id}|}" class="btn btn-danger">Excluir</a>
+				</div>
+				<div th:case="APROVADO" class="card-header d-flex justify-content-between align-items-center alert-primary">
+					<h6 th:text="${pedido.nomeProduto}">Nome do Produto</h6>
+					<a th:href="@{|/pedido/remover/${pedido.id}|}" class="btn btn-danger">Excluir</a>
+				</div>
+				<div th:case="ENTREGUE" class="card-header d-flex justify-content-between align-items-center alert-success">
+					<h6 th:text="${pedido.nomeProduto}">Nome do Produto</h6>
+					<a th:href="@{|/pedido/remover/${pedido.id}|}" class="btn btn-danger">Excluir</a>
+				</div>
 			</th:block>
 			<div class="card-body">
 				<div class="row">
-					<div class="col-12 col-sm-8 mb-3">
+					<div class="col-sm-8">
 						<div class="row">
 							<div class="col-md-5">
 								Valor: <span th:if="${pedido.valor} != null" th:text="'R$ ' + ${#numbers.formatDecimal(pedido.valor,3,'POINT',2,'COMMA')}"></span>
@@ -46,17 +55,16 @@
 						</div>
 						<div>Produto</div>
 						<div>
-							<input class="form-control" th:value="${pedido.urlProduto}"
-								value="url do produto">
+							<input class="form-control" th:value="${pedido.urlProduto}" value="url do produto">
 						</div>
 						<div>Descrição</div>
 						<div>
 							<textarea class="form-control" th:text="${pedido.descricao}"></textarea>
 						</div>
 					</div>
-					<div class="col-12 col-sm-4">
+					<div class="col-sm-4">
 						<div>
-							<img class="img-thumbnail" th:src="${pedido.urlImagem}" src="">
+							<img class="img-thumbnail" th:src="${pedido.urlImagem}">
 						</div>
 					</div>
 				</div>
