@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{base :: head}"></head>
+<head th:replace="fragments :: head"></head>
 <body>
-	<div th:replace="~{base :: logo}"></div>
+	<div th:replace="fragments :: logo"></div>
 	<div class="container">
-		<div th:replace="~{base :: titulo('Novo Pedido')}"></div>
-		<div class="card mt-3">
+		<div th:replace="fragments :: titulo('Novo Pedido')"></div>
+		<div class="card my-3">
 	        <form th:object="${pedidoForm}" class="card-body" th:action="@{/pedido/novo}" method="post">
 	            <div class="form-group">
 	                <label for="nomeProduto">Produto</label>
