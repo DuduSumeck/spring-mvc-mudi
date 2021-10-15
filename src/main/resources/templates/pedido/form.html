@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
 <body>
-	<div th:replace="fragments :: logo"></div>
+	<div th:replace="fragments :: nav"></div>
 	<div class="container">
 		<div th:replace="fragments :: titulo('Novo Pedido')"></div>
 		<div class="card my-3">
@@ -33,5 +33,6 @@
 	        </form>
 		</div>
 	</div>
+	<th:block th:insert="fragments :: bootstrap-scripts"></th:block>
 </body>
 </html>
