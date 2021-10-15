@@ -1,5 +1,5 @@
 function onLoad() {
-	var app = new Vue({
+	new Vue({
 		  el: '#pedidos',
 		  data: {
 		    pedidos : []
@@ -32,7 +32,7 @@ function onLoad() {
 			    	  dataEntrega: pedido.dataEntrega,
 			    	  comentario: pedido.comentario
 			      	})
-			      	.then(response => pedido.ofertaEnviada = true)
+			      	.then(pedido.ofertaEnviada = true)
 			    	.catch(error => {
 			    		error.response.data.errors.forEach(error => {
 			    			pedido.errors[error.field] = error.defaultMessage;

@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
 <body>
-	<div th:replace="fragments :: logo"></div>
+	<div th:replace="fragments :: nav"></div>
 	<div class="container">
 		<div th:replace="fragments :: titulo('Login')"></div>
 		<div th:if="${param.error}" class="alert alert-danger">    
