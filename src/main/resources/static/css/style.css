@@ -13,3 +13,12 @@
 body {
 	padding-top: 85px;
 }
+
+.card-img-aspect-ratio {
+	height: 250px;
+	object-fit: contain;
+}
+
+textArea {
+	resize: none;
+}
