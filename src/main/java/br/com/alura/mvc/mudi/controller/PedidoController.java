@@ -45,7 +45,7 @@ public class PedidoController {
 		return "redirect:/usuario/pedidos";
 	}
 	
-	@GetMapping("/remover/{id}")
+	@GetMapping("/excluir/{id}")
 	public String remove(@PathVariable Integer id) {
 		repository.deleteById(id);
 		return "redirect:/usuario/pedidos";

@@ -9,14 +9,13 @@
 		<!-- A grey horizontal navbar with black text that becomes vertical on medium screens -->
 		<nav class="navbar navbar-expand-md bg-light navbar-light mb-2">
 		
-		  <a th:href="@{/pedido/form}"><button class="btn btn-outline-secondary" type="button">Novo</button></a>
+		  <a th:href="@{/pedido/form}" class="btn btn-primary">Novo</a>
 		  
 		  <!-- Toggler/collapsible Button -->
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#statusNavbar">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
-	  	  
-		  <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+		  <div class="collapse navbar-collapse justify-content-end" id="statusNavbar">
 		    <div class="navbar-nav text-right">
 				<a class="nav-link" th:classappend="${status} == null ? 'active'" th:href="@{/usuario/pedidos}">Todos</a>
 				<a class="nav-link" th:classappend="${status} == 'aguardando' ? 'active'" th:href="@{/usuario/pedidos/aguardando}">Aguardando</a>
@@ -27,42 +26,75 @@
 		</nav>
 		
 		<div class="card mb-3" th:each="pedido : ${pedidos}">
-			<div class="card-header d-flex justify-content-between align-items-center alert-warning">
-				<h6 class="pr-2" th:text="${pedido.nomeProduto}">Nome do Produto</h6>
-				<a th:href="@{|/pedido/remover/${pedido.id}|}" class="btn btn-danger">Excluir</a>
+			<div class="card-header d-flex justify-content-between align-items-center">
+			
+				<h6 th:text="${pedido.nomeProduto}">Nome do Produto</h6>
+				
+				<!-- Trigger the modal with a button -->
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir"
+				data-backdrop="true" th:attrappend="data-id=${pedido.id}">Excluir</button>
+				
+				<!-- Modal -->
+				<div class="modal fade" id="modalExcluir">
+				  <div class="modal-dialog modal-dialog-centered">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h4 class="modal-title">Titulo</h4>
+			        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+				      </div>
+				      <div class="modal-body">
+				        <p>Deseja realmente remover o pedido?</p>
+				      </div>
+				      <div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<a href="#" class="btn btn-primary">Confirmar</a>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				
 			</div>
 			<div class="card-body">
 				<div class="row">
-					<div class="col-sm-8">
+					<div class="col-md-8">
 						<div class="row">
-							<div class="col-md-4">
+							<span class="col-md-6">
 								Valor: <span th:if="${pedido.valor} != null" th:text="'R$ ' + ${#numbers.formatDecimal(pedido.valor,3,'POINT',2,'COMMA')}"></span>
-							</div>
-							<div class="col-md-4">
+							</span>
+							<span class="col-md-6">
 								Data da entrega: <span th:if="${pedido.dataEntrega} != null" th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}"></span>
-							</div>
-							<div class="col-md-4">
-								Status: <span th:text="${pedido.status}"></span>
-							</div>
+							</span>
 						</div>
-						<div>Produto</div>
-						<div>
-							<input class="form-control" th:value="${pedido.urlProduto}" value="url do produto">
+						<span>
+							Status: <span th:text="${pedido.status}"></span>
+						</span>
+						<div class="form-group">
+						  <label for="urlProduto">Produto</label>
+						  <input type="text" class="form-control" id="urlProduto" th:value="${pedido.urlProduto}">
 						</div>
-						<div>Descrição</div>
-						<div>
-							<textarea class="form-control mb-2" th:text="${pedido.descricao}" disabled></textarea>
+						<div class="form-group">
+						  <label for="descricao">Descrição</label>
+						  <textarea class="form-control" id="descricao" rows="3" th:value="${pedido.descricao}" disabled="disabled"></textarea>
 						</div>
 					</div>
-					<div class="col-sm-4">
-						<div>
-							<img class="img-thumbnail" th:src="${pedido.urlImagem}">
-						</div>
+					<div class="col-md-4">
+						<img class="card-img card-img-aspect-ratio" th:src="${pedido.urlImagem}">
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<th:block th:insert="fragments :: bootstrap-scripts"></th:block>
+	<script>
+		// This is to prevent any jQuery code from running before the document is finished loading (is ready).
+		$(document).ready(function() {
+			$('#modalExcluir').on('show.bs.modal', function (event) {
+			  var button = $(event.relatedTarget) // Button that triggered the modal
+			  var id = button.data('id') // Extract info from data-* attributes
+			  var modal = $(this);
+			  modal.find('.modal-title').text('Pedido #' + id)
+			  modal.find('.modal-footer a').attr("href", "/pedido/excluir/" + id)
+			})
+		});
+	</script>
 </body>
 </html>
