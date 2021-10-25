@@ -26,10 +26,38 @@
 		</nav>
 		
 		<div class="card mb-3" th:each="pedido : ${pedidos}">
-			<div class="card-header d-flex justify-content-between align-items-center">
+			<th:block th:switch="${pedido.status.name()}">
+			  <div th:case="AGUARDANDO" th:text="${pedido.nomeProduto}" class="card-header p-3 bg-primary text-white"></div>
+			  <div th:case="APROVADO" th:text="${pedido.nomeProduto}" class="card-header p-3 bg-info text-white" ></div>
+			  <div th:case="ENTREGUE" th:text="${pedido.nomeProduto}" class="card-header p-3 bg-success text-white" ></div>
+			</th:block>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="row">
+							<span class="col-md-6">
+								Valor: <span th:if="${pedido.valor} != null" th:text="'R$ ' + ${#numbers.formatDecimal(pedido.valor,3,'POINT',2,'COMMA')}"></span>
+							</span>
+							<span class="col-md-6">
+								Data da entrega: <span th:if="${pedido.dataEntrega} != null" th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}"></span>
+							</span>
+						</div>
+						<div class="form-group">
+						  <label for="urlProduto">Produto</label>
+						  <input type="text" class="form-control" id="urlProduto" th:value="${pedido.urlProduto}">
+						</div>
+						<div class="form-group">
+						  <label for="descricao">Descrição</label>
+						  <textarea class="form-control" id="descricao" rows="3" th:value="${pedido.descricao}" disabled="disabled"></textarea>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<img class="card-img card-img-aspect-ratio" th:src="${pedido.urlImagem}">
+					</div>
+				</div>
+			</div>
+			<div class="card-footer d-flex justify-content-end">
 			
-				<h6 th:text="${pedido.nomeProduto}">Nome do Produto</h6>
-				
 				<!-- Trigger the modal with a button -->
 				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir"
 				data-backdrop="true" th:attrappend="data-id=${pedido.id}">Excluir</button>
@@ -51,35 +79,6 @@
 				      </div>
 				    </div>
 				  </div>
-				</div>
-				
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-8">
-						<div class="row">
-							<span class="col-md-6">
-								Valor: <span th:if="${pedido.valor} != null" th:text="'R$ ' + ${#numbers.formatDecimal(pedido.valor,3,'POINT',2,'COMMA')}"></span>
-							</span>
-							<span class="col-md-6">
-								Data da entrega: <span th:if="${pedido.dataEntrega} != null" th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}"></span>
-							</span>
-						</div>
-						<span>
-							Status: <span th:text="${pedido.status}"></span>
-						</span>
-						<div class="form-group">
-						  <label for="urlProduto">Produto</label>
-						  <input type="text" class="form-control" id="urlProduto" th:value="${pedido.urlProduto}">
-						</div>
-						<div class="form-group">
-						  <label for="descricao">Descrição</label>
-						  <textarea class="form-control" id="descricao" rows="3" th:value="${pedido.descricao}" disabled="disabled"></textarea>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<img class="card-img card-img-aspect-ratio" th:src="${pedido.urlImagem}">
-					</div>
 				</div>
 			</div>
 		</div>
