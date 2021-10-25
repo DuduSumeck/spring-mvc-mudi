@@ -15,12 +15,12 @@ public class OfertaForm {
 	
 	private Integer idPedido;
 	
-	@NotNull
-	@Pattern(regexp = "^\\d+(\\.\\d+{2})?$")
+	@NotNull(message = "Informe o valor do produto")
+	@Pattern(regexp = "^\\d+(\\.\\d+{2})?$", message = "Formato inválido")
 	private String valor;
 	
-	@NotNull
-	@Pattern(regexp = "\\d{2}/\\d{2}/\\d{4}$")
+	@NotNull(message = "Informa a data de entrega")
+	@Pattern(regexp = "\\d{2}/\\d{2}/\\d{4}$", message = "Formato inválido")
 	private String dataEntrega;
 	
 	private String comentario;
