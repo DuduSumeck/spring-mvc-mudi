@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+	<div th:replace="fragments :: nav"></div>
+	<div class="container">
+		<div th:replace="fragments :: titulo(|Ofertas do Pedido #${pedido.id}|)"></div>
+			<div class="card" th:each="oferta : ${ofertas}">
+				<div class="card-body" th:classappend="${oferta.status.name()} == 'APROVADA' ? 'text-white bg-success'">
+					<div class="row">
+						<span class="col-md-5">
+							Valor: <span th:text="'R$ ' + ${#numbers.formatDecimal(oferta.valor,3,'POINT',2,'COMMA')}"></span>
+						</span>
+						<span class="col-md-7">
+							Data da entrega: <span th:text="${#temporals.format(oferta.dataEntrega, 'dd/MM/yyyy')}"></span>
+						</span>
+					</div>
+					<span>
+						Status: <span th:text="${oferta.status}"></span>
+					</span>
+					<div class="form-group">
+					  <label for="comentario">Comentário</label>
+					  <textarea class="form-control" id="comentario" rows="3" th:value="${oferta.comentario}" disabled></textarea>
+					</div>
+				</div>
+				<div th:if="${oferta.status.name() == 'PENDENTE'}" class="card-footer d-flex justify-content-end">
+					<a th:href="@{/oferta/aprovar/{id}(id = ${oferta.id})}" class="btn btn-primary mx-1">Aceitar</a>
+					<a th:href="@{/oferta/recusar/{id}(id = ${oferta.id})}" class="btn btn-danger mx-1">Recusar</a>
+				</div>
+			</div>
+	</div>
+</body>
+</html>

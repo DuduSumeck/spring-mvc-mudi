@@ -48,7 +48,7 @@
 						</div>
 						<div class="form-group">
 						  <label for="descricao">Descrição</label>
-						  <textarea class="form-control" id="descricao" rows="3" th:value="${pedido.descricao}" disabled="disabled"></textarea>
+						  <textarea class="form-control" id="descricao" rows="3" th:value="${pedido.descricao}" disabled></textarea>
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -56,10 +56,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-footer d-flex justify-content-end">
+			<div class="card-footer d-flex" th:classappend="${pedido.status.name() == 'AGUARDANDO'} ? 'justify-content-between' : 'justify-content-end'">
 			
+				<a th:if="${!pedido.ofertas.empty}" th:href="@{/pedido/{id}/ofertas(id = ${pedido.id})}" class="btn btn-info">Ver ofertas</a>
+				
 				<!-- Trigger the modal with a button -->
-				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir"
+				<button th:if="${pedido.status.name() == 'AGUARDANDO'}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir"
 				data-backdrop="true" th:attrappend="data-id=${pedido.id}">Excluir</button>
 				
 				<!-- Modal -->

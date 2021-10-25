@@ -138,5 +138,9 @@ public class Pedido {
 		oferta.setPedido(this);
 		this.ofertas.add(oferta);
 	}
+	
+	public List<Oferta> getOfertas() {
+		return ofertas;
+	}
 
 }
