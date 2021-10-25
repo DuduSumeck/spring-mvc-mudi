@@ -34,6 +34,7 @@ function onLoad() {
 			      	})
 			      	.then(pedido.ofertaEnviada = true)
 			    	.catch(error => {
+						pedido.ofertaEnviada = false;
 			    		error.response.data.errors.forEach(error => {
 			    			pedido.errors[error.field] = error.defaultMessage;
 			    		})
