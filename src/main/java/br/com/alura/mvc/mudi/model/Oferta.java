@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +25,8 @@ public class Oferta {
 	private BigDecimal valor;
 	private LocalDate dataEntrega;
 	private String comentario;
+	@Enumerated(EnumType.STRING)
+	private StatusOferta status = StatusOferta.PENDENTE;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -69,6 +73,14 @@ public class Oferta {
 
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
+	}
+	
+	public StatusOferta getStatus() {
+		return status;
+	}
+	
+	public void setStatus(StatusOferta status) {
+		this.status = status;
 	}
 
 	public Pedido getPedido() {
