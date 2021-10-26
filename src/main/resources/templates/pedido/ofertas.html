@@ -7,9 +7,9 @@
 		<div th:replace="fragments :: titulo(|Ofertas do Pedido #${pedido.id}|)"></div>
 		<div class="card mb-2" th:each="oferta : ${ofertas}">
 			<th:block th:switch="${oferta.status.name()}">
-			  <div th:case="PENDENTE" th:text="${oferta.status.name()}" class="card-header text-center p-3"></div>
-			  <div th:case="APROVADA" th:text="${oferta.status.name()}" class="card-header text-center p-3 bg-success text-white"></div>
-			  <div th:case="RECUSADA" th:text="${oferta.status.name()}" class="card-header text-center p-3 bg-danger text-white"></div>
+			  <a th:case="PENDENTE" th:href="${oferta.pedido.urlProduto}" th:text="${oferta.pedido.nomeProduto}" class="card-header p-3"></a>
+			  <a th:case="APROVADA" th:href="${oferta.pedido.urlProduto}" th:text="${oferta.pedido.nomeProduto}" class="card-header p-3 bg-success text-white"></a>
+			  <a th:case="RECUSADA" th:href="${oferta.pedido.urlProduto}" th:text="${oferta.pedido.nomeProduto}" class="card-header p-3 bg-danger text-white"></a>
 			</th:block>
 			<div class="card-body">
 				<div class="row">
