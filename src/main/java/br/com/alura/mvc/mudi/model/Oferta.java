@@ -33,6 +33,10 @@ public class Oferta {
 	@JoinColumn(name = "pedido_id", nullable = false)
 	private Pedido pedido;
 
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	private User user;
+
 	public Oferta() {
 
 	}
@@ -89,6 +93,14 @@ public class Oferta {
 
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
+	}
+
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

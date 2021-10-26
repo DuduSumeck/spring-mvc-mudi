@@ -26,6 +26,9 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Oferta> ofertas = new ArrayList<Oferta>();
+	
 	@ElementCollection()
 	@CollectionTable(
 			name = "authorities", 
@@ -65,6 +68,11 @@ public class User {
 	
 	public void addAuthority(Authority authority) {
 		this.authorities.add(authority);
+	}
+	
+	public void addOferta(Oferta oferta) {
+		oferta.setUser(this);
+		this.ofertas.add(oferta);
 	}
 
 }

@@ -19,7 +19,7 @@ public class OfertaForm {
 	@Pattern(regexp = "^\\d+(\\.\\d+{2})?$", message = "Formato inválido")
 	private String valor;
 	
-	@NotNull(message = "Informa a data de entrega")
+	@NotNull(message = "Informe a data de entrega")
 	@Pattern(regexp = "\\d{2}/\\d{2}/\\d{4}$", message = "Formato inválido")
 	private String dataEntrega;
 	

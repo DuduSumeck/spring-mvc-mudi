@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.com.alura.mvc.mudi.model.Oferta;
 import br.com.alura.mvc.mudi.model.Pedido;
+import br.com.alura.mvc.mudi.model.StatusOferta;
 import br.com.alura.mvc.mudi.model.StatusPedido;
 import br.com.alura.mvc.mudi.model.User;
 import br.com.alura.mvc.mudi.model.dto.UsuarioForm;
+import br.com.alura.mvc.mudi.repository.OfertaRepository;
 import br.com.alura.mvc.mudi.repository.PedidoRepository;
 import br.com.alura.mvc.mudi.repository.UserRepository;
 
@@ -33,8 +36,11 @@ public class UsuarioController {
 	@Autowired
 	private UserRepository repository;
 	
+	@Autowired
+	private OfertaRepository ofertaRepository;
+	
 	@GetMapping("/pedidos")
-	public String home(Model model, Principal principal) {
+	public String buscarPedidos(Model model, Principal principal) {
 		List<Pedido> pedidos = pedidoRepository.findAllByUser(principal.getName());
 		model.addAttribute("pedidos", pedidos);
 		return "usuario/home";
@@ -71,5 +77,19 @@ public class UsuarioController {
 		repository.save(form.toUser());
 		return "redirect:/login";
 	}
-
+	
+	@GetMapping("/ofertas")
+	public String buscarOfertas(Model model, Principal principal) {
+		List<Oferta> ofertas = ofertaRepository.findAllByUser(principal.getName());
+		model.addAttribute("ofertas", ofertas);
+		return "usuario/ofertas";
+	}
+	
+	@GetMapping("/ofertas/{status}")
+	public String buscaOfertaPorStatus(@PathVariable String status, Principal principal, Model model) {
+		List<Oferta> ofertas = ofertaRepository.findAllByUserAndStatus(principal.getName(), StatusOferta.valueOf(status.toUpperCase()));
+		model.addAttribute("ofertas", ofertas);
+		model.addAttribute("status", status);
+		return "usuario/ofertas";
+	}
 }
