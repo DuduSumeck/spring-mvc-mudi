@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+	<div th:replace="fragments :: nav"></div>
+	<div class="container">
+		<div th:replace="fragments :: titulo('Minhas Ofertas')"></div>
+		
+		<!-- A grey horizontal navbar with black text that becomes vertical on medium screens -->
+		<nav class="navbar navbar-expand-md bg-light navbar-light mb-2">
+		
+		  <!-- Toggler/collapsible Button -->
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#statusOfertaNavbar">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <a th:href="@{/oferta}" class="btn btn-primary order-md-last">Faça uma Oferta</a>
+		  <div class="collapse navbar-collapse" id="statusOfertaNavbar">
+		    <div class="navbar-nav">
+				<a class="nav-link" th:classappend="${status} == null ? 'active'" th:href="@{/usuario/ofertas}">Todas</a>
+				<a class="nav-link" th:classappend="${status} == 'pendente' ? 'active'" th:href="@{/usuario/ofertas/pendente}">Pendente</a>
+				<a class="nav-link" th:classappend="${status} == 'aprovada' ? 'active'" th:href="@{/usuario/ofertas/aprovada}">Aprovada</a>
+				<a class="nav-link" th:classappend="${status} == 'recusada' ? 'active'" th:href="@{/usuario/ofertas/recusada}">Recusada</a>
+		    </div>
+		  </div>
+		</nav>
+		
+		<div class="card mb-3" th:each="oferta : ${ofertas}">
+			<th:block th:switch="${oferta.status.name()}">
+			  <a th:case="PENDENTE" th:href="${oferta.pedido.urlProduto}" th:text="${oferta.pedido.nomeProduto}" class="card-header p-3 bg-primary text-white"></a>
+			  <a th:case="APROVADA" th:href="${oferta.pedido.urlProduto}" th:text="${oferta.pedido.nomeProduto}" class="card-header p-3 bg-success text-white"></a>
+			  <a th:case="RECUSADA" th:href="${oferta.pedido.urlProduto}" th:text="${oferta.pedido.nomeProduto}" class="card-header p-3 bg-danger text-white"></a>
+			</th:block>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="row">
+							<span class="col-md-6">
+								Valor: <span th:text="'R$ ' + ${#numbers.formatDecimal(oferta.valor,3,'POINT',2,'COMMA')}"></span>
+							</span>
+							<span class="col-md-6">
+								Data da entrega: <span th:text="${#temporals.format(oferta.dataEntrega, 'dd/MM/yyyy')}"></span>
+							</span>
+						</div>
+						<div class="form-group">
+						  <label for="comentario">Comentário</label>
+						  <textarea class="form-control" id="comentario" rows="3" th:value="${oferta.comentario}" disabled></textarea>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<img class="card-img card-img-aspect-ratio" th:src="${oferta.pedido.urlImagem}">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

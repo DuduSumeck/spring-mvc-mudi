@@ -8,28 +8,28 @@
 		
 		<!-- A grey horizontal navbar with black text that becomes vertical on medium screens -->
 		<nav class="navbar navbar-expand-md bg-light navbar-light mb-2">
-		
-		  <a th:href="@{/pedido/form}" class="btn btn-primary">Novo</a>
-		  
-		  <!-- Toggler/collapsible Button -->
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#statusNavbar">
-		    <span class="navbar-toggler-icon"></span>
-		  </button>
-		  <div class="collapse navbar-collapse justify-content-end" id="statusNavbar">
-		    <div class="navbar-nav text-right">
+			
+			<!-- Toggler/collapsible Button -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#statusNavbar">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+			<a th:href="@{/pedido/form}" class="btn btn-primary order-md-last">Novo Pedido</a>
+			<div class="collapse navbar-collapse" id="statusNavbar">
+			  <div class="navbar-nav">
 				<a class="nav-link" th:classappend="${status} == null ? 'active'" th:href="@{/usuario/pedidos}">Todos</a>
 				<a class="nav-link" th:classappend="${status} == 'aguardando' ? 'active'" th:href="@{/usuario/pedidos/aguardando}">Aguardando</a>
 				<a class="nav-link" th:classappend="${status} == 'aprovado' ? 'active'" th:href="@{/usuario/pedidos/aprovado}">Aprovado</a>
 				<a class="nav-link" th:classappend="${status} == 'entregue' ? 'active'" th:href="@{/usuario/pedidos/entregue}">Entregue</a>
-		    </div>
-		  </div>
+			  </div>
+			</div>
+			
 		</nav>
 		
 		<div class="card mb-3" th:each="pedido : ${pedidos}">
 			<th:block th:switch="${pedido.status.name()}">
-			  <div th:case="AGUARDANDO" th:text="${pedido.nomeProduto}" class="card-header p-3 bg-primary text-white"></div>
-			  <div th:case="APROVADO" th:text="${pedido.nomeProduto}" class="card-header p-3 bg-info text-white" ></div>
-			  <div th:case="ENTREGUE" th:text="${pedido.nomeProduto}" class="card-header p-3 bg-success text-white" ></div>
+			  <a th:case="AGUARDANDO" th:href="${pedido.urlProduto}" th:text="|#${pedido.id} - ${pedido.nomeProduto}|" class="card-header p-3 bg-primary text-white"></a>
+			  <a th:case="APROVADO" th:href="${pedido.urlProduto}" th:text="|#${pedido.id} - ${pedido.nomeProduto}|" class="card-header p-3 bg-info text-white"></a>
+			  <a th:case="ENTREGUE" th:href="${pedido.urlProduto}" th:text="|#${pedido.id} - ${pedido.nomeProduto}|" class="card-header p-3 bg-success text-white"></a>
 			</th:block>
 			<div class="card-body">
 				<div class="row">
@@ -41,10 +41,6 @@
 							<span class="col-md-6">
 								Data da entrega: <span th:if="${pedido.dataEntrega} != null" th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}"></span>
 							</span>
-						</div>
-						<div class="form-group">
-						  <label for="urlProduto">Produto</label>
-						  <input type="text" class="form-control" id="urlProduto" th:value="${pedido.urlProduto}">
 						</div>
 						<div class="form-group">
 						  <label for="descricao">Descrição</label>
