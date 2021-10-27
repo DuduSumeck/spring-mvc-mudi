@@ -13,6 +13,7 @@ import br.com.alura.mvc.mudi.model.Oferta;
 import br.com.alura.mvc.mudi.model.Pedido;
 import br.com.alura.mvc.mudi.model.User;
 import br.com.alura.mvc.mudi.model.dto.OfertaForm;
+import br.com.alura.mvc.mudi.repository.OfertaRepository;
 import br.com.alura.mvc.mudi.repository.PedidoRepository;
 import br.com.alura.mvc.mudi.repository.UserRepository;
 
@@ -26,6 +27,9 @@ public class OfertasRest {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private OfertaRepository ofertaRepository;
+	
 	@PostMapping
 	public Oferta novaOferta(@Valid @RequestBody OfertaForm form) {
 		Oferta oferta = form.toOferta();
@@ -34,7 +38,7 @@ public class OfertasRest {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByUsername(username);
 		user.addOferta(oferta);
-		userRepository.save(user);
+		ofertaRepository.save(oferta);
 		return oferta;
 	}
 

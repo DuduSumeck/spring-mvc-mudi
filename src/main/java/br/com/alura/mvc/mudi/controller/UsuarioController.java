@@ -2,10 +2,14 @@ package br.com.alura.mvc.mudi.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.alura.mvc.mudi.model.Oferta;
 import br.com.alura.mvc.mudi.model.Pedido;
@@ -40,17 +45,24 @@ public class UsuarioController {
 	private OfertaRepository ofertaRepository;
 	
 	@GetMapping("/pedidos")
-	public String buscarPedidos(Model model, Principal principal) {
-		List<Pedido> pedidos = pedidoRepository.findAllByUser(principal.getName());
-		model.addAttribute("pedidos", pedidos);
+	public String buscarPedidos(Model model, Principal principal, @RequestParam("page") Optional<Integer> page) {
+		
+		int currentPage = page.orElse(1);
+		Pageable pageable = PageRequest.of(currentPage - 1, 3);
+		Page<Pedido> pagePedido = pedidoRepository.findAllByUser(principal.getName(), pageable);
+		model.addAttribute("pagePedido", pagePedido);
 		return "usuario/home";
 	}
 	
 	@GetMapping("/pedidos/{status}")
-	public String buscaPorStatus(@PathVariable String status, Principal principal, Model model) {
-		List<Pedido> pedidos = pedidoRepository.findAllByUserAndStatus(principal.getName(),
-				StatusPedido.valueOf(status.toUpperCase()));
-		model.addAttribute("pedidos", pedidos);
+	public String buscaPorStatus(@PathVariable String status, Principal principal, Model model,
+			@RequestParam("page") Optional<Integer> page) {
+
+		int currentPage = page.orElse(1);
+		Pageable pageable = PageRequest.of(currentPage - 1, 3);
+		Page<Pedido> pagePedido = pedidoRepository.findAllByUserAndStatus(principal.getName(),
+				StatusPedido.valueOf(status.toUpperCase()), pageable);
+		model.addAttribute("pagePedido", pagePedido);
 		model.addAttribute("status", status);
 		return "usuario/home";
 	}
@@ -87,7 +99,8 @@ public class UsuarioController {
 	
 	@GetMapping("/ofertas/{status}")
 	public String buscaOfertaPorStatus(@PathVariable String status, Principal principal, Model model) {
-		List<Oferta> ofertas = ofertaRepository.findAllByUserAndStatus(principal.getName(), StatusOferta.valueOf(status.toUpperCase()));
+		List<Oferta> ofertas = ofertaRepository.findAllByUserAndStatus(principal.getName(),
+				StatusOferta.valueOf(status.toUpperCase()));
 		model.addAttribute("ofertas", ofertas);
 		model.addAttribute("status", status);
 		return "usuario/ofertas";
