@@ -13,7 +13,7 @@
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#statusNavbar">
 			  <span class="navbar-toggler-icon"></span>
 			</button>
-			<a th:href="@{/pedido/form}" class="btn btn-primary order-md-last">Novo Pedido</a>
+			<a th:href="@{/pedido/form}" class="btn btn-primary order-md-last">Novo</a>
 			<div class="collapse navbar-collapse" id="statusNavbar">
 			  <div class="navbar-nav">
 				<a class="nav-link" th:classappend="${status} == null ? 'active'" th:href="@{/usuario/pedidos}">Todos</a>
@@ -22,10 +22,9 @@
 				<a class="nav-link" th:classappend="${status} == 'entregue' ? 'active'" th:href="@{/usuario/pedidos/entregue}">Entregue</a>
 			  </div>
 			</div>
-			
 		</nav>
 		
-		<div class="card mb-3" th:each="pedido : ${pedidos}">
+		<div class="card mb-3" th:each="pedido : ${pagePedido.content}">
 			<th:block th:switch="${pedido.status.name()}">
 			  <a th:case="AGUARDANDO" th:href="${pedido.urlProduto}" th:text="|#${pedido.id} - ${pedido.nomeProduto}|" class="card-header p-3 bg-primary text-white"></a>
 			  <a th:case="APROVADO" th:href="${pedido.urlProduto}" th:text="|#${pedido.id} - ${pedido.nomeProduto}|" class="card-header p-3 bg-info text-white"></a>
@@ -52,13 +51,14 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-footer d-flex" th:classappend="${pedido.status.name() == 'AGUARDANDO'} ? 'justify-content-between' : 'justify-content-end'">
+			<div class="card-footer d-flex justify-content-end">
 			
-				<a th:if="${!pedido.ofertas.empty}" th:href="@{/pedido/{id}/ofertas(id = ${pedido.id})}" class="btn btn-info">Ver ofertas</a>
+				<a class="btn btn-info mr-1" th:classappend="${pedido.ofertas.empty} ? 'disabled' " th:href="@{/pedido/{id}/ofertas(id = ${pedido.id})}">Ver ofertas</a>
 				
 				<!-- Trigger the modal with a button -->
-				<button th:if="${pedido.status.name() == 'AGUARDANDO'}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir"
-				data-backdrop="true" th:attrappend="data-id=${pedido.id}">Excluir</button>
+				<a class="btn btn-danger ml-1" th:classappend="${pedido.status.name() != 'AGUARDANDO'} ? 'disabled' "
+				type="button" data-toggle="modal" data-target="#modalExcluir"
+				data-backdrop="true" th:attrappend="data-id=${pedido.id}">Excluir</a>
 				
 				<!-- Modal -->
 				<div class="modal fade" id="modalExcluir">
@@ -80,6 +80,30 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- Pagination -->
+		<div class="d-flex justify-content-center justify-content-md-start mb-2">
+			<nav th:if="${pagePedido.totalPages > 0}">
+			  <ul class="pagination" th:with="currentPage = ${pagePedido.number + 1}">
+			    <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled' ">
+			    	<a class="page-link" th:href="${status != null} ? @{/usuario/pedidos/{status}(status = ${status}, page=1)} : @{/usuario/pedidos(page=1)}">Primeiro</a>
+			    </li>
+			    <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled' ">
+			    	<a class="page-link" th:href="${status != null} ? @{/usuario/pedidos/{status}(status=${status}, page=${currentPage-1})} : @{/usuario/pedidos(page=${currentPage-1})}">&laquo;</a>
+			    </li>
+			    <li class="page-item active">
+			    	<a class="page-link" th:href="${status != null} ? @{/usuario/pedidos/{status}(status=${status}, page=${currentPage})} : @{/usuario/pedidos(page=${currentPage})}" th:text="${currentPage}"></a>
+			    </li>
+			    <li class="page-item" th:classappend="${currentPage == pagePedido.totalPages} ? 'disabled' ">
+			    	<a class="page-link" th:href="${status != null} ? @{/usuario/pedidos/{status}(status=${status}, page=${currentPage+1})} : @{/usuario/pedidos(page=${currentPage+1})}">&raquo;</a>
+			    </li>
+			    <li class="page-item" th:classappend="${currentPage == pagePedido.totalPages} ? 'disabled' ">
+			    	<a class="page-link" th:href="${status != null} ? @{/usuario/pedidos/{status}(status=${status}, page=${pagePedido.totalPages})} : @{/usuario/pedidos(page=${pagePedido.totalPages})}">Último</a>
+			    </li>
+			  </ul>
+			</nav>
+		</div>
+		
 	</div>
 	<script>
 		// This is to prevent any jQuery code from running before the document is finished loading (is ready).

@@ -26,8 +26,8 @@
 				</div>
 			</div>
 			<div th:if="${oferta.status.name() == 'PENDENTE'}" class="card-footer d-flex justify-content-end">
-				<a th:href="@{/oferta/aprovar/{id}(id = ${oferta.id})}" class="btn btn-primary mx-1">Aceitar</a>
-				<a th:href="@{/oferta/recusar/{id}(id = ${oferta.id})}" class="btn btn-danger mx-1">Recusar</a>
+				<a th:href="@{/oferta/aprovar/{id}(id = ${oferta.id})}" class="btn btn-primary mr-1">Aceitar</a>
+				<a th:href="@{/oferta/recusar/{id}(id = ${oferta.id})}" class="btn btn-danger ml-1">Recusar</a>
 			</div>
 		</div>
 	</div>
