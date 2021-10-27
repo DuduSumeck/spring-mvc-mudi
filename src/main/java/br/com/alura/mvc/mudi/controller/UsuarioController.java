@@ -1,7 +1,6 @@
 package br.com.alura.mvc.mudi.controller;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -46,7 +45,6 @@ public class UsuarioController {
 	
 	@GetMapping("/pedidos")
 	public String buscarPedidos(Model model, Principal principal, @RequestParam("page") Optional<Integer> page) {
-		
 		int currentPage = page.orElse(1);
 		Pageable pageable = PageRequest.of(currentPage - 1, 3);
 		Page<Pedido> pagePedido = pedidoRepository.findAllByUser(principal.getName(), pageable);
@@ -57,7 +55,6 @@ public class UsuarioController {
 	@GetMapping("/pedidos/{status}")
 	public String buscaPorStatus(@PathVariable String status, Principal principal, Model model,
 			@RequestParam("page") Optional<Integer> page) {
-
 		int currentPage = page.orElse(1);
 		Pageable pageable = PageRequest.of(currentPage - 1, 3);
 		Page<Pedido> pagePedido = pedidoRepository.findAllByUserAndStatus(principal.getName(),
@@ -91,17 +88,22 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/ofertas")
-	public String buscarOfertas(Model model, Principal principal) {
-		List<Oferta> ofertas = ofertaRepository.findAllByUser(principal.getName());
-		model.addAttribute("ofertas", ofertas);
+	public String buscarOfertas(Model model, Principal principal, @RequestParam("page") Optional<Integer> page) {
+		int currentPage = page.orElse(1);
+		Pageable pageable = PageRequest.of(currentPage - 1, 3);
+		Page<Oferta> pageOferta = ofertaRepository.findAllByUser(principal.getName(), pageable);
+		model.addAttribute("pageOferta", pageOferta);
 		return "usuario/ofertas";
 	}
 	
 	@GetMapping("/ofertas/{status}")
-	public String buscaOfertaPorStatus(@PathVariable String status, Principal principal, Model model) {
-		List<Oferta> ofertas = ofertaRepository.findAllByUserAndStatus(principal.getName(),
-				StatusOferta.valueOf(status.toUpperCase()));
-		model.addAttribute("ofertas", ofertas);
+	public String buscaOfertaPorStatus(@PathVariable String status, Principal principal, Model model,
+			@RequestParam("page") Optional<Integer> page) {
+		int currentPage = page.orElse(1);
+		Pageable pageable = PageRequest.of(currentPage - 1, 3);
+		Page<Oferta> pageOferta = ofertaRepository.findAllByUserAndStatus(principal.getName(),
+				StatusOferta.valueOf(status.toUpperCase()), pageable);
+		model.addAttribute("pageOferta", pageOferta);
 		model.addAttribute("status", status);
 		return "usuario/ofertas";
 	}
