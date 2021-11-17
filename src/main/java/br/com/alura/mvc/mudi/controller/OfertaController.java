@@ -36,6 +36,8 @@ public class OfertaController {
 		
 		Pedido pedido = oferta.getPedido();
 		pedido.setStatus(StatusPedido.APROVADO);
+		pedido.setValor(oferta.getValor());
+		pedido.setDataEntrega(oferta.getDataEntrega());
 		pedidoRepository.save(pedido);
 		
 		return "redirect:/usuario/pedidos/aprovado";
