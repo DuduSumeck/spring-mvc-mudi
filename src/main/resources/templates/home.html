@@ -6,32 +6,25 @@
 	<div class="container">
 		<div th:replace="fragments :: titulo('Últimos Pedidos')"></div>
 		<div class="card mb-3" th:each="pedido : ${pedidos}">
-			<div class="card-header alert-dark" th:text="${pedido.nomeProduto}"></div>
+			<a class="card-header alert-dark" th:href="${pedido.urlProduto}" th:text="|#${pedido.id} - ${pedido.nomeProduto}|"></a>
 			<div class="card-body">
 				<div class="row">
-					<div class="col-12 col-sm-8 mb-3">
+					<div class="col-12 col-sm-8">
 						<div class="row">
-							<div class="col-md-5">
+							<span class="col-md-6">
 								Valor: <span th:text="'R$ ' + ${#numbers.formatDecimal(pedido.valor,3,'POINT',2,'COMMA')}"></span>
-							</div>
-							<div class="col-md-7">
-								Data da entrega: <span th:if="${pedido.dataEntrega} != null" th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}"></span>
-							</div>
+							</span>
+							<span class="col-md-6">
+								Data da entrega: <span th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}"></span>
+							</span>
 						</div>
-						<div>Produto</div>
-						<div>
-							<input class="form-control" th:value="${pedido.urlProduto}"
-								value="url do produto">
-						</div>
-						<div>Descrição</div>
-						<div>
-							<textarea class="form-control" th:text="${pedido.descricao}"></textarea>
+						<div class="form-group">
+						  <label for="descricao">Descrição</label>
+						  <textarea disabled class="form-control" id="descricao" rows="3" th:value="${pedido.descricao}"></textarea>
 						</div>
 					</div>
-					<div class="col-12 col-sm-4">
-						<div>
-							<img class="img-thumbnail" th:src="${pedido.urlImagem}" src="">
-						</div>
+					<div class="col-md-4">
+						<img class="card-img card-img-aspect-ratio" th:src="${pedido.urlImagem}">
 					</div>
 				</div>
 			</div>
