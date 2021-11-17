@@ -18,7 +18,7 @@
 	
 	</head>
 	<body>
-		<div th:fragment="nav">
+		<header th:fragment="nav">
 			
 			<!-- A blue horizontal navbar with white text that becomes vertical on medium screens fixed on top -->
 			<nav class="navbar navbar-expand-md bg-primary navbar-dark fixed-top">
@@ -45,7 +45,7 @@
 			    </div>
 			  </div>
 			</nav>
-		</div>
+		</header>
 		
 		<div th:fragment="titulo(text)" class="jumbotron mb-2 mt-2">
 			<h1 class="display-4" th:text="${text}"></h1>

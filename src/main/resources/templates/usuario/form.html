@@ -5,16 +5,16 @@
 	<div th:replace="fragments :: nav"></div>
 	<div class="container">
 		<div th:replace="fragments :: titulo('Novo Usuário')"></div>
-		<div class="card mt-3">
+		<div class="card">
 	        <form th:object="${usuarioForm}" class="card-body" th:action="@{/usuario/add}" method="post">
 	            <div class="form-group">
 	                <label for="username">Usuário</label>
-	                <input type="text" th:field="*{username}" th:errorclass="is-invalid" class="form-control" placeholder="Nome do usuário"/>
+	                <input type="text" th:field="*{username}" class="form-control" th:errorclass="is-invalid" placeholder="Nome do usuário"/>
 	                <div class="invalid-feedback" th:errors="*{username}"></div>
 	            </div>
 	            <div class="form-group">
 	                <label for="password">Senha</label>
-	                <input type="password" th:field="*{password}" th:errorclass="is-invalid" class="form-control" placeholder="Senha de acesso"/>
+	                <input type="password" th:field="*{password}" class="form-control" th:errorclass="is-invalid" placeholder="Senha de acesso"/>
 	                <div class="invalid-feedback" th:errors="*{password}"></div>
 	            </div>
 	            <button class="btn btn-primary" type="submit">Cadastrar</button>
