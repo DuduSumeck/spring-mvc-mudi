@@ -1,9 +1,5 @@
 <h1 align="center"> Mudi </h1>
 
-<h4 align="center"> 
-    :construction:  Projeto em construção  :construction:
-</h4>
-
 O Mudi é um sistema que permite ao usuário cadastrar um produto do seu interesse permitindo que outros usuários possam realizar ofertas pelo produto. 
 Através da aplicação é possível cadastrar um pedido, visualizar as ofertas recebidas e criar ofertas para outros usuários.
 
