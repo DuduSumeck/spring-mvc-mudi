@@ -15,7 +15,7 @@ import br.com.alura.mvc.mudi.model.StatusPedido;
 import br.com.alura.mvc.mudi.repository.PedidoRepository;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping({"/", "/home"})
 public class HomeController {
 	
 	@Autowired
