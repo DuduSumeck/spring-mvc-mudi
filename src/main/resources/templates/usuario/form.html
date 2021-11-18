@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
-<body>
+<body onload="setFocusToUsername()">
 	<div th:replace="fragments :: nav"></div>
 	<div class="container">
 		<div th:replace="fragments :: titulo('Novo Usuário')"></div>
