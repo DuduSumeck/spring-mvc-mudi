@@ -10,12 +10,20 @@ A aplicação foi desenvolvida durante o curso de Spring MVC da Alura.
 
 ## Funcionalidades do projeto
 
-- Cadastro de usuário, sendo necessário informar o nome do usuário (único dentro do sisitema) e a senha com mínimo 8 caracteres.
+- Cadastro de usuário, sendo necessário informar o nome do usuário (único dentro do sistema) e a senha com mínimo 8 caracteres.
+![Cadastro de usuário](https://user-images.githubusercontent.com/52134136/142472033-07cb2fbf-dbe9-4ef9-855d-257a008a2a2b.gif)
+
 - Cadastro de pedido, sendo obrigatório informar todos os campos, exceto a descrição.
+![Cadastro de pedido](https://user-images.githubusercontent.com/52134136/142473149-4e4d0e44-7b58-4564-bf41-d8a608f39a10.gif)
+
 - Exclusão do pedido caso o mesmo ainda esteja com o status de aguardando.
+![Exclusão do pedido](https://user-images.githubusercontent.com/52134136/142473963-875dd41e-e186-4e98-8458-5c186d97e2b6.gif)
+
+- Envio e listagem de ofertas para pedidos de outros usuários.
+![Envio e listagem de ofertas](https://user-images.githubusercontent.com/52134136/142475542-0a0091da-ce58-467f-ac15-cd4a77aa5036.gif)
+
 - Listagem de ofertas recebidas para um pedido, permitindo recusar ou aceitar uma oferta.
-- Envio de ofertas para pedidos de outros usuários.
-- Listagem das ofertas enviadas.
+![Listagem ofertas recebidas](https://user-images.githubusercontent.com/52134136/142476044-432f8433-f12d-4a11-9722-00c927ed0686.gif)
 
 ## Tecnologias
 
