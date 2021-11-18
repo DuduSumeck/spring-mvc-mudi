@@ -36,9 +36,9 @@ As seguintes ferramentas foram utilizadas na construção do projeto:
 - [Bootstrap](https://getbootstrap.com/)
 
 ## Acesso ao projeto
-Você pode [acessar](https://github.com/DuduSumeck/spring-mvc-mudi/tree/master/src) o código fonte do projeto inicial ou [baixar](https://github.com/DuduSumeck/spring-mvc-mudi/archive/refs/tags/v2.0.zip) a versão mais recente.
+Você pode [acessar](https://github.com/DuduSumeck/spring-mvc-mudi/tree/master/src) o código fonte do projeto ou [baixar](https://github.com/DuduSumeck/spring-mvc-mudi/archive/refs/tags/v2.0.zip) a versão mais recente.
 
 ## Mais informações do curso
 
-Gostou do projeto e quer conhecer mais? Você pode [acessar o curso](https://cursos.alura.com.br/course/spring-mvc-thymeleaf-bootstrap) e desenvolver projeto desde o início!
+Gostou do projeto e quer conhecer mais? Você pode [acessar o curso](https://cursos.alura.com.br/course/spring-mvc-thymeleaf-bootstrap) e desenvolver o projeto desde o início!
 
