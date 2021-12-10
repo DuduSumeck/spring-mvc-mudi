@@ -29,7 +29,7 @@ A aplicação foi desenvolvida durante o curso de Spring MVC da Alura.
 
 As seguintes ferramentas foram utilizadas na construção do projeto:
 
-- Java 11
+- Java 8
 - [Spring](https://spring.io/)
 - [Vue](https://vuejs.org/)
 - [Thymeleaf](https://www.thymeleaf.org/)
