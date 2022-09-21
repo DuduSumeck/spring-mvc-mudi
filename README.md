@@ -24,7 +24,7 @@ A aplicação foi desenvolvida durante o curso de Spring MVC da Alura.
 
 ## Tecnologias
 
-As seguintes ferramentas foram utilizadas na construção do projeto:
+As seguintes tecnologias foram utilizadas na construção do projeto:
 
 - Java 8
 - [Spring](https://spring.io/)
